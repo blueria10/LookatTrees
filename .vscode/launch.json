@@ -9,7 +9,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "C:/Users/Owner/Downloads/starter-kit/starter-kit/index.html"
+            "file": "C:/Users/Owner/Downloads/starter-kit/index.html"
         }
     ]
 }
