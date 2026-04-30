@@ -1,0 +1,561 @@
+/* Your styles here... */
+
+/* Keep each page the same size */
+.viewport {
+    width: 1530px;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    
+}
+
+/* Set the background image for the grass */
+body {
+    /*background-image: url('https://thumbs.wbm.im/pw/medium/d115e7166b9cf0d52507b406c820d3c8.png');*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /*
+    background-image: url('https://64.media.tumblr.com/9060eb2f178b44282181f1203272110b/24c50930e0f2aabe-87/s1280x1920/d7981c74f22870f0051ed3965bc1a9007c33af7e.pnj');
+*/
+}
+
+.world {
+    position: relative;
+    width: 4590px;
+    height: 100vh;
+    transition: transform 0.6s ease-in-out;
+    overflow: visible;
+    position: relative;
+    /*background-color: rgb(232, 255, 255);*/
+
+}
+.world.blur {
+    filter: blur(12px);
+    transition: filter 1.4s ease-in-out;
+}
+
+/*Blur the background image without blurring the content of the world*/
+.world::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('https://64.media.tumblr.com/2e7e0e58af950dada335c1fc72507efd/9010db845cab53af-dd/s1280x1920/7c14339fc27854032c5a7044b0372bbe9dfa030e.jpg');
+    background-repeat: no-repeat;
+    background-size: 100vw 70vh;
+    
+    filter: blur(1px);        /* blur only the background */
+    
+    z-index: -1;               /* keep it behind the world content */
+}
+
+
+
+/* Common styles for all views */
+.view1, .view2, .view3 {
+    position: absolute;
+    top: 0;
+    width: 1530px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- THE COORDINATE MAP --- */
+
+.view3 {
+    left: -1530px; /* positioned to the left of the start */
+}
+
+.view1 {
+    left: 0px; /* the starting view */
+    background-image: url('https://64.media.tumblr.com/9060eb2f178b44282181f1203272110b/24c50930e0f2aabe-87/s1280x1920/d7981c74f22870f0051ed3965bc1a9007c33af7e.pnj');
+    background-size: cover;
+    background-position: center;
+}
+
+.view2 {
+    left: 1530px; /* positioned to the right of the start */
+}
+
+/*Move the tree to the bottom center of the page*/
+.naked_tree {
+    position: absolute;
+    bottom: 0;
+    left: 740px;
+    transform: translateX(-50%);
+    width: 750px;
+    height: 750px;
+    max-width: none; /* stops container from clipping the branches */
+    pointer-events: none; /* mouse ignores the image, only sees the narrow container */
+}
+/*Change the naked tree color to a light brown from a gray*/
+.naked_tree {
+    filter:
+        sepia(80%)
+        saturate(120%)
+        brightness(60%)
+        hue-rotate(-10deg);
+
+}
+/*Have multiple oak trees in a line at the top of the page, with different positions*/
+.oak_tree_container {
+    position: relative;  
+    width: 1400px;
+    left:70px;
+    
+}
+.oak_tree{
+    position: absolute;
+    top: 195px;
+    left:70px;
+    width: 130px;
+    animation: tree-shake 3.5s ease-in-out infinite;  /*add the shaking animation to all oak trees*/
+}
+
+/*make the oak trees  touch/intersect*/
+
+.oak_tree:first-child {
+    left: 0px;
+}
+
+.oak_tree:nth-child(2) {
+    left: 120px;
+}
+.oak_tree:nth-child(3) {
+    left: 200px;
+}
+.oak_tree:nth-child(4) {
+    left: 300px;
+}
+.oak_tree:nth-child(5) {
+    left: 400px;
+    pointer-events: none;
+}
+.oak_tree:nth-child(6) {
+    left: 500px;
+    pointer-events: none;
+}
+.oak_tree:nth-child(7) {
+    left: 600px;
+    pointer-events: none;
+}
+.oak_tree:nth-child(8) {
+    left: 730px;
+    pointer-events: none;
+}
+.oak_tree:nth-child(9) {
+    left: 800px;
+    pointer-events: none;
+}
+.oak_tree:nth-child(10) {
+    left: 940px;
+    pointer-events: none;
+}
+.oak_tree:nth-child(11) {
+    left: 1070px;
+    pointer-events: none;
+}
+.oak_tree:nth-child(12) {
+    left: 1200px;
+}
+.oak_tree:nth-child(13) {
+    left: 1300px;
+}
+.oak_tree:nth-child(14) {
+    left: 650px;
+    pointer-events: none;
+}
+.oak_tree:nth-child(15) {
+    left: 700px;
+    pointer-events: none;
+}
+.oak_tree:nth-child(16) {
+    left: 900px;
+    pointer-events: none;
+}
+
+/*Make the oak trees shake*/
+@keyframes tree-shake {
+    0%   { transform: rotate(0deg); }
+    20%  { transform: rotate(1deg); }
+    40%  { transform: rotate(-0.5deg); }
+    60%  { transform: rotate(0.8deg); }
+    80%  { transform: rotate(-0.3deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.oak_tree.shake {
+    animation: tree-shake 0.4s ease-in-out;
+    transform-origin: bottom center; /* makes it look like it’s rooted */
+}
+
+
+/*Bring the naked tree to the front of the page, so it overlaps the oak trees*/
+.naked_tree {
+    z-index: 1;
+}
+
+/*Add the directions and angles for the nav arrows norwest, northeast, west, southeast */
+.nav_arrows {
+    position: relative;
+    /*Make the black arrow gray*/
+    filter: invert(100%);
+    opacity: 0.3;
+    z-index: 9999;
+    cursor: pointer;
+
+}
+
+.northwest_arrow {
+    position: absolute;
+    top: 400px;
+    left: 450px;
+    transform: rotate(135deg);
+    width: 80px;
+    height: 80px;
+
+}
+.northeast_arrow {
+    position: absolute;
+    top: 400px;
+    left: 920px;
+    transform: rotate(-135deg);
+    width: 80px;
+    height: 80px;
+}
+.west_arrow {
+    position: absolute;
+    top: 600px;
+    left: 500px;
+    transform: translateY(-50%);
+    transform: rotate(-270deg);
+    width: 80px;
+    height: 80px;
+}
+.southeast_arrow {
+    position: absolute;
+    top: 600px;
+    left: 900px;
+    transform: rotate(300deg);
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+
+.world.zoom-in{
+    transition: transform 1.2s ease-in-out;
+}
+@keyframes zoom-in {
+    0% {
+        transform: rotate(300deg) scale(1);
+    }
+    100% {
+        transform: rotate(300deg) scale(5);
+    }
+}
+@keyframes grass-zoom {
+    0% {
+        transform: translateX(var(--worldX)) scale(0.5);
+    }
+    100% {
+        transform: translateX(var(--worldX)) scale(1);
+    }
+
+}
+
+.fade-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease-in-out, backdrop-filter 1.2s ease-in-out;
+    backdrop-filter: blur(0px);
+    z-index: 9999;
+
+}
+
+.fade-overlay.active {
+    opacity: 1;
+    backdrop-filter: blur(18px);
+}
+
+
+/*-- VIEW 3 -*/
+.grass3, .grass3_alt {
+     width: 100%; 
+     height: 100%; 
+     object-fit: cover;
+     position: absolute;
+     pointer-events: none; /* allows clicks to pass through to the world */
+     }
+.grass3{
+    opacity: 1;
+    z-index:2;
+}
+.grass3_alt{
+    opacity: 0;
+    z-index:1;
+}
+
+
+.magic-box {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 60px;
+    background-color: rgba(0,0,0,0.5);
+    
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Silkscreen', sans-serif;
+    font-size: 14px;
+    color:#fff;
+    cursor: pointer;
+    z-index: 10; /* make sure it's above the images */
+    transition: all 0.3s ease;
+}
+
+.magic-box:hover {
+    background-color: #2ce6ff;
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Keep your swap logic from before */
+.view3.swapped .grass3 { opacity: 0; }
+.view3.swapped .grass3_alt { opacity: 1; }
+
+
+.grass2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*Add the go back button, and place at the top right of the page, and make it a small font size*/
+.view3 h5 {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 14px;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Silkscreen', sans-serif;
+}
+.view2 h5 {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 14px;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Silkscreen', sans-serif;
+}
+
+/*-- VIEW 1 -*/
+/*Code for the people walking in view 1*/
+.people_container {
+    position: absolute;
+    top:290px;
+    left: 70;
+    width: 1400px;
+    height: 100px;
+    pointer-events: auto; 
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.person {
+    position: absolute;
+    width: 40px; /* small people to match the scale */
+    height: auto;
+}
+
+/* Position them under specific trees */
+.p1 { left: 50px; }
+.p2 { left: 250px; }
+
+/* Simple walking animation */
+@keyframes walk {
+   0% { 
+        transform: translateX(0); 
+        opacity: 0; 
+    }
+    10% { 
+        opacity: 1; /* fade in quickly at the start */
+    }
+    90% { 
+        opacity: 1; /* stay visible */
+    }
+    100% { 
+        transform: translateX(370px); 
+        opacity: 0; /* fade out at the end before snapping back */
+    }
+}
+
+.walking {
+    animation: walk 13s linear infinite normal;
+    will-change: transform;
+}
+
+/*Have button to zoom back out from the zoomed in view in the people container*/
+.people_container h5 {
+    position: absolute;
+    top: -70px;
+    right: 0px;
+    font-size: 4px;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    cursor: pointer;
+    
+}
+
+.zoom-back {
+    position: absolute;
+    top: 290px;
+    left: 250px;
+    font-size: 3px;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    padding: 1px 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index:20;
+    font-family: 'Silkscreen', sans-serif;
+}
+
+/*Make butterly fly on top of the grass in view 2*/
+.butterfly {
+    position: absolute;
+    top: 50px;
+    left: 300px;
+    width: 2000px;
+    height: auto;
+    z-index: 5; /* Make sure it’s above the grass */
+}
+
+/*When the naked_tree has hover, add a text box to the view*/
+
+
+.text-overlay {
+    position: absolute;
+    bottom: 400px; /* position it high enough on the tree */
+    left: 740px;
+    transform: translateX(-50%);
+    width: 300px; 
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'Silkscreen', sans-serif;
+    
+    opacity: 0; /* hidden by default */
+    pointer-events: auto; /* mouse ignores the text box itself */
+    transition: opacity 0.5s ease;
+    z-index: 10000;
+}
+
+/*MAKE IT SOLID WHEN ACTIVE */
+.text-overlay.active {
+    opacity: 1;
+    pointer-events: auto; /* this blocks the trees behind it */
+}
+
+/*ALSO SOLID WHEN HOVERED DIRECTLY */
+.text-overlay:hover {
+    opacity: 1;
+    pointer-events: auto; 
+}
+
+
+.oak-text-overlay {
+    position: absolute;
+    top: 250px; /* position it high enough on the tree */
+    left: 200px;
+    transform: translateX(-50%);
+    width: 300px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'Silkscreen', sans-serif;
+    
+    opacity: 0; /* hidden by default */
+    pointer-events: auto; /* mouse ignores the text box itself */
+    transition: opacity 0.5s ease;
+    z-index: 10000;
+}
+
+/*MAKE IT SOLID WHEN ACTIVE */
+.oak-text-overlay.active {
+    opacity: 1;
+}
+
+/*ALSO SOLID WHEN HOVERED DIRECTLY */
+.oak-text-overlay:hover {
+    opacity: 1;
+    pointer-events: auto; 
+}
+
+.grass-text-overlay {
+    position: absolute;
+    bottom: 100px; /* position it high enough on the tree */
+    right: 80px;
+    transform: translateX(-50%);
+    width: 300px; /* constrain the box width */
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'Silkscreen', sans-serif;
+    
+    opacity: 0; /* hidden by default */
+    pointer-events: auto; /* mouse ignores the text box itself */
+    transition: opacity 0.5s ease;
+    z-index: 10000;
+}
+
+/*MAKE IT SOLID WHEN ACTIVE */
+.grass-text-overlay.active {
+    opacity: 1;
+}
+
+/*ALSO SOLID WHEN HOVERED DIRECTLY */
+.grass-text-overlay:hover {
+    opacity: 1;
+    pointer-events: auto; 
+}
+
+/*JS-controlled hide to force the text box to be hidden */
+.oak-text-overlay.force-hide {
+    opacity: 0 !important;
+}
+
+
+
+
+
+
+
+
+
